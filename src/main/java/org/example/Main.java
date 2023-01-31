@@ -9,13 +9,12 @@ import java.net.http.HttpResponse;
 import java.util.Scanner;
 
 public class Main {
-    final static String default_url_to_translate = "https://github.com/autoCobalt/cautionary/blob/main/sneak.m4a?raw=true";
     public static void main(String[] args) throws Exception{
 
         Transcript transcript = new Transcript();
 
         /* Alter the url to any downloadable mp3 or m4a with voice audio. It must be accessible without
-            any additional login requirements.
+            any additional login requirements. example audio file urls are in the Constants class.
             File used:
                 https://github.com/autoCobalt/cautionary/blob/main/sneak.m4a?raw=true
 
@@ -70,10 +69,12 @@ public class Main {
     }
 
     private static String getAudioUrl(Scanner scanner) {
-        System.out.print("Please provide a url for the audio to translate to text. Default options:\n" +
-                "1. Grapejuice audio\n" +
-                "2. Prescreened offers\n" +
-                "\nurl: ");
+        System.out.print("""
+                Please provide a url for the audio to translate to text. Default options:
+                1. Grapejuice audio
+                2. Prescreened offers
+
+                url:\s""");
         String response = scanner.nextLine();
 
         if("1".equals(response))
@@ -85,9 +86,10 @@ public class Main {
     }
 
     private static String getApiKey(Scanner scanner) {
-        System.out.print("Please provide your Assemblyai.com api key. If you do not" +
-                "\n have a key, please sign up for a free key at Assemblyai.com." +
-                "\nkey: ");
+        System.out.print("""
+                Please provide your Assemblyai.com api key. If you do not
+                 have a key, please sign up for a free key at Assemblyai.com.
+                key:\s""");
         return scanner.nextLine();
     }
 }
