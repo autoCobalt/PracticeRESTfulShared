@@ -67,7 +67,7 @@ public class Main {
         }
 
         String response_message = (!"completed".equals(transcript.getStatus()) && !"error".equals(transcript.getStatus())) ?
-                "Failsafe kicked in at " + timer_failsafe + " seconds. No message to display." :
+                "Failsafe timer kicked in at " + timer_failsafe + " seconds. No message to display." :
                 "\nResponse text received:\n" + transcript.getText();
 
         System.out.println(response_message);
