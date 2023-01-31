@@ -51,6 +51,7 @@ public class Main {
                 .header("Authorization", api_key)
                 .build();
 
+        int timer_failsafe = 0;
         while (true) {
 
             HttpResponse<String> getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
@@ -58,13 +59,18 @@ public class Main {
 
             System.out.println(transcript.getStatus());
 
-            if ("completed".equals(transcript.getStatus()) || "error".equals(transcript.getStatus()))
+            if ("completed".equals(transcript.getStatus()) || "error".equals(transcript.getStatus()) || timer_failsafe > 10)
                 break;
 
+            timer_failsafe++;
             Thread.sleep(1000);
         }
 
-        System.out.println("\nResponse text received:\n" + transcript.getText());
+        String response_message = (!"completed".equals(transcript.getStatus()) && !"error".equals(transcript.getStatus())) ?
+                "Failsafe kicked in at " + timer_failsafe + " seconds. No message to display." :
+                "\nResponse text received:\n" + transcript.getText();
+
+        System.out.println(response_message);
 
     }
 
